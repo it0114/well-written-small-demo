@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        /* 整体 水印 */
+        .water-mark-wrap {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            z-index: 9999;
+            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 文字 */
+        .water-word {
+            display: inline-block;
+            font-size: 18px;
+            color: rgba(51, 51, 51, 0.4);
+            transform: rotate(-25deg);
+            user-select: none;
+        }
+
+        /* 图片 */
+        .water-img {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+
+        /* 改变文字的盒子 */
+        .box {
+            width: 200px;
+        }
+
+        .water-box {
+            width: 200px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .water-btn {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="water-box water-name" contenteditable="true"></div>
+    <button class="water-btn">点击更换水印</button>
+</div>
+
+</body>
+<script src="watermark.js"></script>
+<script>
+
+    let waterBtn = document.querySelector(".water-btn")
+
+    // 获取当前时间
+    function getTime() {
+        let date = new Date();
+        let year = date.getFullYear();        //年 ,从 Date 对象以四位数字返回年份
+        let month = date.getMonth() + 1;      //月 ,从 Date 对象返回月份 (0 ~ 11) ,date.getMonth()比实际月份少 1 个月
+        let day = date.getDate();             //日 ,从 Date 对象返回一个月中的某一天 (1 ~ 31)
+        let hours = date.getHours();          //小时 ,返回 Date 对象的小时 (0 ~ 23)
+        let minutes = date.getMinutes();      //分钟 ,返回 Date 对象的分钟 (0 ~ 59)
+        let seconds = date.getSeconds();      //秒 ,返回 Date 对象的秒数 (0 ~ 59)
+
+        //获取当前系统时间 ( 不进行 补0 )
+        let currentDate = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+
+        //修改月份格式
+        if (month >= 1 && month <= 9) month = "0" + month;
+        //修改日期格式
+        if (day >= 0 && day <= 9) day = "0" + day;
+        //修改小时格式
+        if (hours >= 0 && hours <= 9) hours = "0" + hours;
+        //修改分钟格式
+        if (minutes >= 0 && minutes <= 9) minutes = "0" + minutes;
+        //修改秒格式
+        if (seconds >= 0 && seconds <= 9) seconds = "0" + seconds;
+
+        //获取当前系统时间 ( 进行 补0 )
+
+        return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    }
+
+    let waterName = document.querySelector(".water-name")
+    waterName.innerText = getTime()
+
+    // 点击设置页面的水印
+    waterBtn.addEventListener("click", function () {
+        let waterName = document.querySelector(".water-name").innerText
+        createWaterMark('炫酷的水印, 我也是超长水印' + waterName, document.querySelector('.water-content'))
+    })
+    // 进入页面执行一次
+    waterBtn.click()
+</script>
+</html>
