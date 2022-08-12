@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .game {
+            width: 700px;
+            height: 500px;
+            border: 1px solid #333;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dino {
+            width: 20px;
+            height: 40px;
+            background: red;
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+        }
+
+        .addJump {
+            animation: jump 0.3s linear infinite;
+        }
+
+        .block {
+            width: 20px;
+            height: 20px;
+            background: blue;
+            position: absolute;
+            bottom: 0;
+            left: 700px;
+            animation: block 1s linear infinite;
+        }
+
+        @keyframes block {
+            0% {
+                left: 700px;
+            }
+            100% {
+                left: -200px;
+            }
+        }
+
+        @keyframes jump {
+            0% {
+                bottom: 0;
+            }
+            50% {
+                bottom: 100px;
+            }
+            100% {
+                bottom: 0;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="game">
+    <div class="dino"></div>
+    <div class="block"></div>
+</div>
+
+<script>
+    const dino = document.querySelector(".dino")
+    const block = document.querySelector(".block")
+
+    // 1. 按下空格键, 则添加恐龙跳跃类名
+    document.onkeydown = function (event) {
+        if (event.code === "Space") {
+            dino.classList.add('addJump')
+            setTimeout(() => {
+                dino.classList.remove('addJump')
+            }, 300)
+        }
+    }
+    // 2. 每10毫秒判断一次碰撞
+    let timer = setInterval(() => {
+        const dinoBottom = parseFloat(getComputedStyle(dino).getPropertyValue("bottom"))
+        const blockLeft = parseFloat(getComputedStyle(block).getPropertyValue("left"))
+        // console.log(dinoBottom);
+        // console.log(blockLeft);
+
+        if (
+            blockLeft < 40 &&
+            blockLeft > -40 &&
+            dinoBottom <= 40
+        ) {
+            console.log("游戏结束");
+            // alert('游戏结束')
+        }
+    }, 10)
+
+
+</script>
+
+</body>
+</html>

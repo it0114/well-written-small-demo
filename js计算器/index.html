@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        background: #dbd9d9;
+    }
+
+    #app {
+        position: relative;
+        margin: 50px auto;
+        width: 350px;
+        padding-bottom: 20px;
+        background-color: #000000;
+        border: 1px solid transparent;
+        box-shadow: 0 0 7px -3px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .D_ipt {
+        display: block;
+        width: 350px;
+        height: 50px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    input {
+        outline: none;
+        user-select: none;
+        width: 300px;
+        height: 45px;
+        text-align: right;
+        color: #fff;
+        padding: 0 10px;
+        font-size: 30px;
+        border: none;
+        background: transparent;
+    }
+
+    button {
+        width: 60px;
+        height: 60px;
+        color: #fff;
+        background-color: #323232;
+        border-radius: 30px;
+        border: none;
+        font-size: 25px;
+        cursor: pointer;
+        vertical-align: bottom;
+    }
+
+    .D_btn {
+        width: 350px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .D_btn > button {
+        margin: 10px;
+    }
+
+    .clear {
+        width: 300px;
+        margin-top: 10px;
+    }
+
+    .compute {
+        background: #216dee;
+        color: #fff;
+    }
+
+    .add,
+    .sub,
+    .mul,
+    .except {
+        background: #E4A851;
+        color: #fff;
+    }
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<body>
+<div id="app">
+    <label class="D_ipt">
+        <input disabled type="text" placeholder="计算器" v-model="inputValue">
+    </label>
+    <div class="D_btn">
+        <button :class="item.className"
+                v-cloak
+                v-for="item in btnList"
+                :key="item.value"
+                @click="handleBtnClick(item)">{{item.value}}
+        </button>
+    </div>
+    <button class="clear" @click="handleClearClick">清 除</button>
+</div>
+
+<script src="vue.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            // 渲染按钮
+            btnList: [
+                {className: 'fig', value: '1'},
+                {className: 'fig', value: '2'},
+                {className: 'fig', value: '3'},
+                {className: 'fig add', value: '+'},
+                {className: 'fig', value: '4'},
+                {className: 'fig', value: '5'},
+                {className: 'fig', value: '6'},
+                {className: 'fig sub', value: '-'},
+                {className: 'fig', value: '7'},
+                {className: 'fig', value: '8'},
+                {className: 'fig', value: '9'},
+                {className: 'fig mul', value: '*'},
+                {className: 'fig', value: '.'},
+                {className: 'fig', value: '0'},
+                {className: 'compute', value: '='},
+                {className: 'fig except', value: '/'},
+            ],
+            // 判断是否完成一次计算
+            flag: false,
+            // 输入框的内容
+            inputValue: '',
+        },
+        methods: {
+            // 按钮组的点击事件
+            handleBtnClick(item) {
+                if (item.className.match('fig')) {
+                    // 如果flag为真则执行第一个式子，假则执行第二个
+                    this.flag ? this.inputValue = item.value : this.inputValue += item.value
+                    this.flag = false;
+                }
+                if (item.className === 'compute') {
+                    let str = /^([\+|\-|\*|\/0-9\.]+[\+|\-|\*|\/][0-9\.]+)+$/
+                    str.test(this.inputValue) ? this.inputValue += '=' + eval(this.inputValue) : this.inputValue = '错误'
+                    this.flag = true
+                }
+            },
+            // 清空按钮的点击事件
+            handleClearClick() {
+                this.inputValue = ''
+            }
+        }
+    })
+</script>
+</body>
+</html>

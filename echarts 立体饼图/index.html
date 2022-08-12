@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #main {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="main"></div>
+
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.3.3/echarts.common.js "></script>
+<script>
+    let chartDom = document.getElementById('main');
+    let myChart = echarts.init(chartDom);
+
+    // 数据抽离
+    let topName = "总计"
+    let bottomName = "38"
+    let pieData = [
+        {value: 1048, name: '饼图名称1'},
+        {value: 735, name: '饼图名称2'},
+        {value: 580, name: '饼图名称3'},
+    ]
+
+    // 配置项
+    let option = {
+        color: [
+            '#F5CD65',
+            '#EB783A',
+            '#E1FDFD',
+        ],
+        // 添加中间文字
+        graphic: [
+            {
+                type: 'text',
+                left: 'center',
+                top: '38%',
+                style: {
+                    text: topName,
+                    textAlign: 'center',
+                    fill: '#333',
+                    fontSize: 16,
+                    fontWeight: 600
+                }
+            },
+            {
+                type: 'text',
+                left: 'center',
+                top: '45%',
+                style: {
+                    text: bottomName,
+                    textAlign: 'center',
+                    fill: '#333',
+                    fontSize: 40,
+                    fontWeight: 700
+                }
+            },
+        ],
+        series: [
+            // 偏移外边框
+            {
+                name: '偏移外边框',
+                type: 'pie',
+                hoverAnimation: false,
+                startAngle: 315,
+                radius: ['70%', '70%'],//边框大小
+                center: ['48%', '52%'],//边框位置
+                silent: true, // 不响应鼠标事件
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {
+                        value: 100,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 2,//设置边框粗细
+                                borderColor: 'rgb(0,0,0, 1)'//边框颜色
+                            }
+                        }
+                    }
+                ]
+            },
+            // 偏移内边框
+            {
+                name: '偏移内边框',
+                type: 'pie',
+                hoverAnimation: false, // 禁止放大
+                startAngle: 315,
+                radius: ['50%', '50%'],//边框大小
+                center: ['48%', '52%'],//边框位置
+                silent: true,
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {
+                        value: 100,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 2,//设置边框粗细
+                                borderColor: 'rgb(0,0,0, 1)'//边框颜色
+                            }
+                        }
+                    }
+                ]
+            },
+            // 外边框
+            {
+                name: '外边框',
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['70%', '70%'],//边框大小
+                center: ['50%', '50%'],//边框位置
+                silent: true,
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {
+                        value: 100,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 3,//设置边框粗细
+                                borderColor: 'rgb(0,0,0, 1)'//边框颜色
+                            }
+                        }
+                    }
+                ]
+            },
+            // 内边框
+            {
+
+                name: '内边框',
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['50%', '50%'],//边框大小
+                center: ['50%', '50%'],//边框位置
+                silent: true,
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {
+                        value: 100,
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 3,//设置边框粗细
+                                borderColor: 'rgb(0,0,0, 1)'//边框颜色
+                            }
+                        }
+                    }
+                ]
+            },
+            // 数据
+            {
+                name: '数据',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                hoverAnimation: false, // 禁止放大动画
+                avoidLabelOverlap: false, // 避免标签重叠
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: false
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: pieData
+            },
+        ]
+    };
+
+    // 渲染数据
+    option && myChart.setOption(option);
+</script>
+
+</html>

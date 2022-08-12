@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .random-num {
+            margin-top: 50px;
+            padding: 10px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button onclick="btn1()">获取一个随机数</button>
+    <button onclick="btn2()">获取一个十位的随机数</button>
+    <button onclick="btn3()">获取一个固定前五位是0的随机数</button>
+</div>
+
+<div contentEditable="true" class="random-num"></div>
+<script>
+    /**
+     *
+     * @param min  最小值
+     * @param max  最大值
+     * @returns {number} 返回一个数字
+     */
+    function randomNum(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        //含最大值，含最小值
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    /**
+     *
+     * @param len  需要传入随机生成多少位数
+     * @returns {number} 返回一组数字
+     * @constructor
+     */
+    function randomNumDigit(len) {
+        let nonceStr = ''
+        for (let i = 0; i <= len; i++) {
+            nonceStr += randomNum(0, 9);
+        }
+        return parseInt(nonceStr)
+    }
+
+    console.log(randomNumDigit(10));
+
+    /**
+     *
+     * @param text  需要替换的数字组
+     * @param start 从那个位置开始替换
+     * @param repText 替换的内容
+     * @returns {string}  返回替换后的内容
+     */
+    function replaceNum(text, start, repText) {
+        return text.toString().substr(0, start - 1) + repText + text.toString().substr(repText.length + 1);
+    }
+
+    console.log(replaceNum(randomNumDigit(10), 0, '00000'));
+
+
+    let oDiv = document.querySelector('.random-num')
+
+    function btn1() {
+        oDiv.innerText = randomNum(0, 9)
+    }
+
+    function btn2() {
+        oDiv.innerText = randomNumDigit(10)
+    }
+
+    function btn3() {
+        oDiv.innerText = replaceNum(randomNumDigit(10), 0, '00000')
+    }
+
+</script>
+</body>
+</html>
