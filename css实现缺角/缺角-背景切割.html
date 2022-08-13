@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background-image: linear-gradient(-45deg, transparent 45px, #cccccc 0);
+            background-position: top left;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            position: relative;
+            margin: 200px;
+        }
+
+        .box:after {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            display: block;
+            content: "";
+            width: 496px;
+            height: 496px;
+            background-image: linear-gradient(-45deg, transparent 45px, #fff 0);
+            background-position: top left;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        /*
+        主要通过 background 的方式进行是实现
+        但是这样子实现, 他的 after 就会盖在原本的 box 上, 所以导致 box 无法输入文字
+        这种方式只适合做背景切割, 而不适合做边框
+
+        当然 , 如果不用 after 属性, 而是使用两个div嵌套, 也还是能实现正常输入内容的, 但是
+        两个 div 嵌套不符合我们的本意
+        */
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="box"></div>
+
+</body>
+</html>

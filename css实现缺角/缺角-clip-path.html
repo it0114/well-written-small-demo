@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            margin: 50px;
+            background: #ccc;
+            clip-path: polygon(
+                    0 0,
+                    0 0,
+                    100% 0,
+                    100% calc(100% - 40px),
+                    calc(100% - 40px) 100%,
+                    0 100%,
+                    0 0,
+                    0 0
+            );
+        }
+
+        /*
+        通过 clip-path 的方式来是实现的代码比较晦涩难懂, 并且需要计算不同的位置的大小
+        实属劝退
+
+        */
+
+    </style>
+</head>
+<body>
+
+
+<div class="box"></div>
+
+</body>
+</html>
