@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<button onclick="phone()"> 拨打电话</button>
+<button onclick="email()"> 发送短信</button>
+
+<script>
+    const phone = () => {
+        const a = document.createElement('a')
+        a.href = 'tel:10086'
+        a.click()
+    }
+    const email = () => {
+        const a = document.createElement('a')
+        a.href = 'sms:10086'
+        a.click()
+    }
+</script>
+
+
+</body>
+</html>
