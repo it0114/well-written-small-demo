@@ -9,7 +9,12 @@ function scrollIt(x) {
 }
 
 // 初始化位置
-scrollIt(450);
+window.onresize = function (e) {
+    let wrapperWidth = document.querySelector(".wrapper").clientWidth
+    scrollIt(wrapperWidth / 2);
+}
+let wrapperWidth = document.querySelector(".wrapper").clientWidth
+scrollIt(wrapperWidth / 2);
 
 // pc 端事件
 document.querySelector('.scroller').addEventListener('mousedown', function () {

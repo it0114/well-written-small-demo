@@ -12,12 +12,12 @@
 
 /* 容器 */
 .wrapper {
-    width: 900px;
+    width: 1100px;
     height: 600px;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate(-50%, -50%);
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -27,10 +27,6 @@
 .after {
     width: 100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-color: white;
-    background-size: cover;
-    background-position: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -43,10 +39,6 @@
     height: 100%;
 }
 
-.after {
-    width: 125px;
-}
-
 /* after 和 before 的文字 */
 .before:before,
 .after:before {
@@ -54,11 +46,10 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 100px;
-    height: 50px;
+    padding: 10px 10px;
+    box-sizing: border-box;
     background: #6A6D71;
     text-align: center;
-    line-height: 50px;
     color: #fff;
     pointer-events: none;
     user-select: none;
@@ -135,4 +126,66 @@
 .scroller:after {
     background: #fff;
 }
+
+/* 自适应配置 */
+
+/*1280分辨率以上(大于1200px)*/
+@media screen and (min-width: 1200px) {
+
+    .wrapper {
+        width: 960px !important;
+        height: 600px !important;
+    }
+}
+
+/*1100分辨率(大于960px，小于1199px)*/
+@media screen and (min-width: 960px) and (max-width: 1199px) {
+
+    .wrapper {
+        width: 960px !important;
+        height: 600px !important;
+    }
+}
+
+/*880分辨率(大于768px，小于959px)*/
+@media screen and (min-width: 768px) and (max-width: 959px) {
+
+    .wrapper {
+        width: 900px !important;
+        height: 600px !important;
+    }
+}
+
+/*720分辨率(大于480px，小于767px)*/
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .wrapper {
+        width: 650px !important;
+        height: 400px !important;
+    }
+
+    .before:before,
+    .after:before {
+        padding: 5px 5px;
+    }
+
+}
+
+/*440分辨率以下(小于479px)*/
+@media only screen and (max-width: 479px) {
+    .wrapper {
+        width: 300px !important;
+        height: 200px !important;
+    }
+
+    .before:before,
+    .after:before {
+        padding: 5px 5px;
+    }
+}
+
+
+
+
+
 
