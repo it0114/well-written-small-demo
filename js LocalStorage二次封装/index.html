@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<button onclick="handleClick()">存储</button>
+<button onclick="handleClick1()">获取</button>
+<button onclick="handleClick2()">清除</button>
+
+<script>
+    const NAME_SPACE = "integrated_command"
+
+    const getStorage = () => {
+        return JSON.parse(window.localStorage.getItem(NAME_SPACE) || "{}")
+    }
+
+    // 存储单条数据
+    const setItem = (key, val) => {
+        /*
+        * 思路 :
+        * 先取出命名空间里面的内容, 然后通过命名空间的 key 值进行添加,以免造成全局污染 , 并且支持传入 object
+        * */
+        let storage = getStorage()
+        storage[key] = val
+        window.localStorage.setItem(NAME_SPACE, JSON.stringify(storage))
+    }
+    // 获取单条数据
+    const getItem = (key) => {
+        return getStorage()[key]
+    }
+    // 清除单条 localStorage
+    const clearItem = (key) => {
+        let storage = getStorage()
+        delete storage[key]
+        window.localStorage.setItem(NAME_SPACE, JSON.stringify(storage))
+    }
+    // 清除全部localStorage
+    const clearAll = () => {
+        window.localStorage.clear()
+    }
+
+
+</script>
+
+<script>
+    const handleClick = () => {
+        let obj = {
+            name: 123,
+            age: 18,
+            a: 19,
+            b: 19,
+            c: 19,
+            d: 19,
+        }
+        setItem('test', obj)
+        setItem('test1', obj)
+        setItem('test2', obj)
+        setItem('test3', obj)
+        setItem('test4', obj)
+    }
+
+    const handleClick1 = () => {
+        let obj = getItem('test')
+        console.log(obj);
+    }
+    const handleClick2 = () => {
+        clearItem('test')
+    }
+
+
+</script>
+
+</body>
+</html>
