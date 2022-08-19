@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .input-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-content {
+            width: 200px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="input-box">
+    <div class="input-content" contenteditable="true"></div>
+    <span class="input-btn">隐藏</span>
+</div>
+
+<script>
+
+
+    let inputContent = document.querySelector(".input-content")
+    let inputBtn = document.querySelector(".input-btn")
+
+    let text = ""
+
+    inputContent.addEventListener("input", (e) => {
+        text = e.target.innerText
+    })
+
+    let flag = false
+    inputBtn.addEventListener("click", () => {
+        if (flag) {
+            flag = false
+            inputBtn.innerText = "隐藏"
+            inputContent.innerText = text
+        } else {
+            flag = true
+            inputBtn.innerText = "显示"
+            replaceStar(inputContent, 1, 5)
+        }
+    })
+
+    /**
+     *
+     * @param ele    传入 需要改变的元素
+     * @param start  从 0 开始, 到什么位置结束
+     * @param end    从什么位置开始 , 到结尾结束
+     */
+    function replaceStar(ele, start, end) {
+        let tel = ele.innerText
+        let len = ele.innerText.length
+        let startTemp = ''
+
+        // 隐藏前面
+        let startNum = []
+        for (let i = 0; i < start; i++) startNum.push("*")
+        startTemp = tel.replace(tel.substring(0, start), startNum.join(""))
+
+        // 隐藏后面
+        let endNum = []
+        for (let i = 0; i < end; i++) endNum.push("*")
+
+        let arr = startTemp.split('');
+        arr.splice((len - end), len, endNum.join(""));
+        ele.innerText = arr.join('');
+
+    }
+
+</script>
+
+</body>
+</html>
