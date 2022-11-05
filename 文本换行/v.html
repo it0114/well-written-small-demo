@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+        }
+
+        /** 必须设置flex布局撑开容器，
+        **  否则content的before元素高度calc(100% - 18px)不会生效
+        */
+        .content-wrapper {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            padding: 50px;
+            box-sizing: border-box;
+            border: 1px solid red;
+        }
+
+        .content {
+            font-size: 14px;
+            line-height: 20px;
+            word-break: break-all;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        /*撑开高度，确保icon-1位于文本右下方*/
+        .content::before {
+            content: '';
+            display: block;
+            float: right;
+            width: 0px;
+            height: calc(100% - 18px);
+        }
+
+        /*用于文本未超出时遮挡icon-1*/
+        .content::after {
+            position: absolute;
+            content: '';
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+        }
+
+        /*文本超出后显示的图标*/
+        .icon-1 {
+            height: 16px;
+            width: 16px;
+            background-size: cover;
+            margin-left: 8px;
+            float: right;
+            clear: both;
+            display: block;
+            background: blue;
+        }
+
+        /*文本未超出时显示的图标*/
+        .icon-2 {
+            position: relative;
+            display: inline-block;
+            height: 16px;
+            width: 16px;
+            background-size: cover;
+            margin-left: 2px;
+            transform: translateY(2px);
+            background: red;
+        }
+
+        /*文本未超出，且文本恰巧在某行末尾结束，遮挡处于正下方的icon-1*/
+        .icon-2::after {
+            content: '';
+            position: absolute;
+            background: #ffffff;
+            left: 0px;
+            bottom: -40px;
+            height: 40px;
+            width: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="content-wrapper">
+        <div class="content">
+            <!--小图标1(文本超出隐藏后显示)-->
+            <span class="icon-1"></span>
+            <!--文本内容-->
+            <span>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</span>
+            <!--小图标2(跟随文本，超出后隐藏)-->
+            <span class="icon-2"><span>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="content">
+            <!--小图标1(文本超出隐藏后显示)-->
+            <span class="icon-1"></span>
+            <!--文本内容-->
+            <span>测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</span>
+            <!--小图标2(跟随文本，超出后隐藏)-->
+            <span class="icon-2"><span>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="content">
+            <!--小图标1(文本超出隐藏后显示)-->
+            <span class="icon-1"></span>
+            <!--文本内容-->
+            <span>测试内容测试内容测试内容</span>
+            <!--小图标2(跟随文本，超出后隐藏)-->
+            <span class="icon-2"><span>
+        </div>
+    </div>
+</div>
+
+<!-- 参考 https://blog.csdn.net/java_wzh123/article/details/124322590-->
+
+</body>
+</html>
